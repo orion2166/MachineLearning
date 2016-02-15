@@ -54,18 +54,15 @@ public class DatabaseManagment {
             }
             //Close the buffer reader
             bufferReader.close();
-        }catch(Exception e){
-            System.out.println("Error while reading file line by line:" + e.getMessage());
-        }
-
-    }
+        }catch(Exception e){System.out.println("Error while reading file line by line:" + e.getMessage());}}
 
     String [] get_value(int i){
         return dataset.get(i);
     }
     Object[] get_attribute_keys(){
         Set<String> attribute_sets = attributes.keySet();
-        return attribute_sets.toArray();
-
-    }
+        return attribute_sets.toArray(); }
+    int get_size(){ return dataset.size();}
+    int get_attribute_size(){return attributes.size();}
+    List<String> get_attribute_classifications(String key){return attributes.get(key);}
 }

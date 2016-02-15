@@ -6,11 +6,15 @@ import java.util.Vector;
  */
 public class AttributeNode {
     private String node_name;
-    private HashMap<String,int[]> attribute_sidenodes = new HashMap<String,int[]>();
+    private HashMap<String,int[]> attribute_transition_nodes = new HashMap<String,int[]>();
     private HashMap<String,AttributeNode> attribute_children = new HashMap<String,AttributeNode>();
     public AttributeNode(String name)
     {node_name = name;}
-
-    
+    void initialize_attribute_values(String classification){
+        attribute_transition_nodes.put(classification,new int[]{0,0});
+    }
+    void update_attributes(String classification, int[] updated_value){
+        attribute_transition_nodes.replace(classification,updated_value);
+    }
 
 }
