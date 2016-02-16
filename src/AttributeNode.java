@@ -16,5 +16,6 @@ public class AttributeNode {
     void update_attributes(String classification, int[] updated_value){
         attribute_transition_nodes.replace(classification,updated_value);
     }
+    HashMap get_transition_nodes(){return attribute_transition_nodes;}
 
 }

@@ -9,6 +9,7 @@ public class DatabaseManagment {
     private Vector <String []> dataset = new Vector<String []>();
 //    private String target_attribute;
     private HashMap<String,List<String>> attributes = new HashMap<String,List<String>>();
+    private Vector<String> Attribute_name = new Vector<>();
 
     public DatabaseManagment(String attributefile){
         try{
@@ -24,10 +25,13 @@ public class DatabaseManagment {
 
             // Read file line by line and print on the console
             while ((line = bufferReader.readLine()) != null)   {
-                List<String> lineset = Arrays.asList(line.split(","));
-                String attribute_values = lineset.get(0);
-                lineset.remove(0);
-                attributes.put(attribute_values,lineset);
+                String[] tmp = line.split(",");
+                Attribute_name.add(tmp[0]);
+                String[] newtemp = new String[tmp.length - 1];
+                for(int i = 1;i<tmp.length;i++)
+                    newtemp[i-1] = tmp[i];
+                List<String> lineset = Arrays.asList(newtemp);
+                attributes.put(tmp[0], lineset);
             }
             //Close the buffer reader
             bufferReader.close();
@@ -59,9 +63,7 @@ public class DatabaseManagment {
     String [] get_value(int i){
         return dataset.get(i);
     }
-    Object[] get_attribute_keys(){
-        Set<String> attribute_sets = attributes.keySet();
-        return attribute_sets.toArray(); }
+    Vector get_attribute_keys(){return Attribute_name;}
     int get_size(){ return dataset.size();}
     int get_attribute_size(){return attributes.size();}
     List<String> get_attribute_classifications(String key){return attributes.get(key);}
