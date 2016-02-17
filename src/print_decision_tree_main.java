@@ -7,7 +7,8 @@ public class print_decision_tree_main {
         Basic_decision_tree.set_attributes();
         Basic_decision_tree.build_value_set(30);
         Basic_decision_tree.build_attributes_sets("democrat","?");
-
+//        Double valuesasdf = Basic_decision_tree.gaintest();
+        int hlepers = 0;
     }
 
 }

@@ -7,6 +7,9 @@ public class DecisionTree {
     private DatabaseManagment value_information;
     private Vector <AttributeNode> tree_attributes = new Vector<>();
     private Vector<String[]> used_data = new Vector<>();
+    private int[] target_data_attributes = new int[]{0,0};
+    private AttributeNode decision_tree_root_node = null;
+
     public DecisionTree(String attribute_file_location, String database_datasets_filelocatio)
     {
         value_information = new DatabaseManagment(attribute_file_location);
@@ -48,7 +51,7 @@ public class DecisionTree {
         {
             String [] change_value = used_data.get(i);
             boolean target_is_positive = change_value[0].equals(target_positive_value);
-            for(int j = 1;j<change_value.length;j++)
+            for(int j = 0;j<change_value.length;j++)
             {
                 HashMap transition_node_maps = tree_attributes.get(j).get_transition_nodes();
                 if(change_value[j].equals(missing_value)){
@@ -96,6 +99,46 @@ public class DecisionTree {
                     }
                 }
             }
+        }
+        HashMap transition_node_maps = tree_attributes.get(0).get_transition_nodes();
+        Iterator<HashMap.Entry<String,int[]>> iterator = transition_node_maps.entrySet().iterator();
+        while(iterator.hasNext()){
+            int[] temp = iterator.next().getValue();
+            target_data_attributes[0] += temp[0];
+            target_data_attributes[1] += temp[1];
+        }
+
+    }
+
+    void build_decision_tree(){
+        MathmaticCalculations gain_value = new MathmaticCalculations();
+        double max_value = 0;
+        for(int i = 0;i < 3;i++){
+            if(decision_tree_root_node){
+
+            }
+            Vector <Double> tmp_gain_values = new Vector<>();
+            for(int j = 0;j < tree_attributes.size();j++){
+                if(tree_attributes.get(j).is_on_tree()){
+                    tmp_gain_values.add((double) 0);
+                    continue;
+                }
+                HashMap temp = tree_attributes.get(j).get_transition_nodes();
+                tmp_gain_values.add(gain_value.gain(target_data_attributes,temp));
+            }
+            int location = 0;
+            for(int j = 0;j < tmp_gain_values.size();j++) {
+                if (max_value < tmp_gain_values.get(j)) {
+                    max_value = tmp_gain_values.get(j);
+                    location = j;
+                }
+            }
+            if(decision_tree_root_node == null)
+            {
+                decision_tree_root_node = tree_attributes.get(location);
+                tree_attributes.get(location).used();
+            }
+
         }
     }
 }
