@@ -8,6 +8,7 @@ public class AttributeNode {
     private String node_name;
     private HashMap<String,int[]> attribute_transition_nodes = new HashMap<String,int[]>();
     private HashMap<String,AttributeNode> attribute_children = new HashMap<String,AttributeNode>();
+    private HashMap<String,String> next_connection = new HashMap<>();
     private boolean node_on_tree;
     public AttributeNode(String name) {
         node_name = name;
@@ -25,6 +26,10 @@ public class AttributeNode {
     }
     void used(){
         node_on_tree = true;
+    }
+    void update_all(String end, AttributeNode connection, String key_value){
+        attribute_children.put(key_value,connection);
+        next_connection.put(key_value,end);
     }
 
 }
