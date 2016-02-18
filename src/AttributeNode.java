@@ -44,6 +44,10 @@ public class AttributeNode {
     void list_add(String[] list_value,String key){
         sublists.get(key).add(list_value);
     }
+    Vector get_list(String key){
+        return sublists.get(key);
+    }
+    void completed(){node_completed = true;}
 
 
 }

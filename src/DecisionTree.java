@@ -10,12 +10,14 @@ public class DecisionTree {
     private int[] target_data_attributes = new int[]{0,0};
     private Vector <String> target_attribute_value = new Vector<>();
     private AttributeNode decision_tree_root_node = null;
-    private Queue<AttributeNode> attributeNode_queue = new LinkedList<AttributeNode>();;
+    private Queue<AttributeNode> attributeNode_queue = new LinkedList<AttributeNode>();
+    private String global_target_positive_value,global_missing_value;
 
     public DecisionTree(String attribute_file_location, String database_datasets_filelocatio)
     {
         value_information = new DatabaseManagment(attribute_file_location);
         value_information.setDataset(database_datasets_filelocatio);   }
+
     boolean tree_finished(){
         for(int i = 0;i<tree_attributes.size();i++){
             if(!tree_attributes.get(i).node_is_complete())
@@ -23,6 +25,7 @@ public class DecisionTree {
         }
         return true;
     }
+
     void set_attributes(){
         int num_attributes = value_information.get_attribute_size();
         Vector<String> key_values = value_information.get_attribute_keys();
@@ -128,6 +131,9 @@ public class DecisionTree {
     }
 
     void build_first_node_decision_tree(String target_positive_value,String missing_value) {
+        global_missing_value = missing_value;
+        global_target_positive_value = target_positive_value;
+
         build_attributes_sets(target_positive_value, missing_value, used_data);
         MathmaticCalculations gain_value = new MathmaticCalculations();
         double max_value = 0;
@@ -155,60 +161,61 @@ public class DecisionTree {
         }
     }
     void build_decision_tree(){
+        MathmaticCalculations gain_value = new MathmaticCalculations();
         while(!tree_finished()){
-            tmp_gain_values = new Vector<>();
-            int initial_queue_size = attributeNode_queue.size();
-            for(int l = 0;l<initial_queue_size;l++)
-            {
-                AttributeNode temp_node_queue = attributeNode_queue.poll();
-                HashMap transition_node_maps = temp_node_queue.get_transition_nodes();
-                Iterator<HashMap.Entry<String,int[]>> iterator = transition_node_maps.entrySet().iterator();
-                while(iterator.hasNext()){
-                    Map.Entry<String,int[]> temperary = iterator.next();
-                    String temp_key = temperary.getKey();
-                    int [] temp_value = temperary.getValue();
-                    double entrop_value = gain_value.Enthropy(temp_value);
-                    if(entrop_value < 0.4 || i == 2){
-                        if(temp_value[0] > temp_value[1])
-                            temp_node_queue.update_all(target_attribute_value.get(0),null,temp_key);
-                        else
-                            temp_node_queue.update_all(target_attribute_value.get(1),null,temp_key);
-                        continue;
-                    }
-                    target_data_attributes = temp_value;
-                    for(int j = 0;j < tree_attributes.size();j++){
-                        if(tree_attributes.get(j).is_on_tree()){
-                            tmp_gain_values.add((double) 0);
-                            continue;
-                        }
-                        HashMap temp = tree_attributes.get(j).get_transition_nodes();
-                        tmp_gain_values.add(gain_value.gain(target_data_attributes,temp));
-                    }
-
-                    location = 0;
-                    for(int j = 0;j < tmp_gain_values.size();j++) {
-                        if (max_value < tmp_gain_values.get(j)) {
-                            max_value = tmp_gain_values.get(j);
-                            location = j;
-                        }
-                    }
-                    if(max_value == 0)
-                    {
-                        if(temp_value[0] > temp_value[1])
-                            temp_node_queue.update_all(target_attribute_value.get(0),null,temp_key);
-                        else
-                            temp_node_queue.update_all(target_attribute_value.get(1),null,temp_key);
-                        continue;
-                    }
+            Vector<Double> tmp_gain_values = new Vector<>();
+            AttributeNode temp_node_queue = attributeNode_queue.poll();
+            HashMap transition_node_maps = temp_node_queue.get_transition_nodes();
+            Iterator<HashMap.Entry<String,int[]>> iterator = transition_node_maps.entrySet().iterator();
+            while(iterator.hasNext()){
+                double max_value = 0;
+                Map.Entry<String,int[]> temperary = iterator.next();
+                String temp_key = temperary.getKey();
+                build_attributes_sets(global_target_positive_value,global_missing_value,temp_node_queue.get_list(temp_key));
+                int [] temp_value = temperary.getValue();
+                double entrop_value = gain_value.Enthropy(temp_value);
+                if(entrop_value == 0){
+                    if(temp_value[0] > temp_value[1])
+                        temp_node_queue.update_all(target_attribute_value.get(0),null,temp_key);
                     else
-                    {
-                        temp_node_queue.update_all(null,tree_attributes.get(location),temp_key);
-                        attributeNode_queue.add(tree_attributes.get(location));
-                        tree_attributes.get(location).used();
-                    }
-
+                        temp_node_queue.update_all(target_attribute_value.get(1),null,temp_key);
+                    continue;
                 }
+                target_data_attributes = temp_value;
+                for(int j = 0;j < tree_attributes.size();j++){
+                    if(tree_attributes.get(j).is_on_tree()){
+                        tmp_gain_values.add((double) 0);
+                        continue;
+                    }
+                    HashMap temp = tree_attributes.get(j).get_transition_nodes();
+                    tmp_gain_values.add(gain_value.gain(target_data_attributes,temp));
+                }
+
+                int location = 0;
+                for(int j = 0;j < tmp_gain_values.size();j++) {
+                    if (max_value < tmp_gain_values.get(j)) {
+                        max_value = tmp_gain_values.get(j);
+                        location = j;
+                    }
+                }
+                if(max_value == 0)
+                {
+                    if(temp_value[0] > temp_value[1])
+                        temp_node_queue.update_all(target_attribute_value.get(0),null,temp_key);
+                    else
+                        temp_node_queue.update_all(target_attribute_value.get(1),null,temp_key);
+                    continue;
+                }
+                else
+                {
+                    temp_node_queue.update_all(null,tree_attributes.get(location),temp_key);
+                    attributeNode_queue.add(tree_attributes.get(location));
+                    tree_attributes.get(location).used();
+                }
+
             }
+            temp_node_queue.completed();
+
         }
     }
 }
