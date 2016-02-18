@@ -10,12 +10,19 @@ public class DecisionTree {
     private int[] target_data_attributes = new int[]{0,0};
     private Vector <String> target_attribute_value = new Vector<>();
     private AttributeNode decision_tree_root_node = null;
+    private Queue<AttributeNode> attributeNode_queue = new LinkedList<AttributeNode>();;
 
     public DecisionTree(String attribute_file_location, String database_datasets_filelocatio)
     {
         value_information = new DatabaseManagment(attribute_file_location);
         value_information.setDataset(database_datasets_filelocatio);   }
-
+    boolean tree_finished(){
+        for(int i = 0;i<tree_attributes.size();i++){
+            if(!tree_attributes.get(i).node_is_complete())
+                return false;
+        }
+        return true;
+    }
     void set_attributes(){
         int num_attributes = value_information.get_attribute_size();
         Vector<String> key_values = value_information.get_attribute_keys();
@@ -28,29 +35,35 @@ public class DecisionTree {
 
     }
 
-    void build_value_set(int percentage_used){
-        Random rand = new Random();
 
+    void build_value_set(int percentage_used){
+        value_information.randomize_data();
         int max = value_information.get_size();
-        List<Boolean> list = new ArrayList<Boolean>(Collections.nCopies(max, false));
         int number_sets = (max * percentage_used)/100;
         for(int i = 0;i<number_sets;i++)
         {
-            int random_value = rand.nextInt(max);
-            if(list.get(random_value)){
-                //it has already been used
-                i--;
-            }
-            else {
-                used_data.add(value_information.get_value(random_value));
-                list.set(random_value,true);
+            used_data.add(value_information.get_value(i));
+        }
+    }
+    void reset_attributes(){
+        target_data_attributes = new int[]{0,0};
+        for(int i = 0;i <tree_attributes.size();i++){
+            HashMap transition_node_maps = tree_attributes.get(i).get_transition_nodes();
+            Iterator<HashMap.Entry<String,int[]>> iterator = transition_node_maps.entrySet().iterator();
+            while(iterator.hasNext()){
+                String temperary = iterator.next().getKey();
+                tree_attributes.get(i).reset_key(temperary);
             }
         }
     }
-    void build_attributes_sets(String target_positive_value,String missing_value){
-        for(int i = 0;i < used_data.size();i++)
+    void build_attributes_sets(String target_positive_value,String missing_value,Vector<String[]> usable_data){
+        reset_attributes();
+        for(int i = 0;i < usable_data.size();i++)
         {
-            String [] change_value = used_data.get(i);
+            String [] change_value = usable_data.get(i);
+            for(int l = 0;l<tree_attributes.size();l++){
+                tree_attributes.get(l).list_add(change_value, change_value[l]);
+            }
             boolean target_is_positive = change_value[0].equals(target_positive_value);
             for(int j = 0;j<change_value.length;j++)
             {
@@ -114,34 +127,35 @@ public class DecisionTree {
 
     }
 
-    void build_decision_tree(){
+    void build_first_node_decision_tree(String target_positive_value,String missing_value) {
+        build_attributes_sets(target_positive_value, missing_value, used_data);
         MathmaticCalculations gain_value = new MathmaticCalculations();
         double max_value = 0;
-        Queue<AttributeNode> attributeNode_queue = new LinkedList<AttributeNode>();;
-        Vector <Double> tmp_gain_values = new Vector<>();
-        for(int j = 0;j < tree_attributes.size();j++){
-            if(tree_attributes.get(j).is_on_tree()){
+        Queue<AttributeNode> attributeNode_queue = new LinkedList<AttributeNode>();
+        Vector<Double> tmp_gain_values = new Vector<>();
+        for (int j = 0; j < tree_attributes.size(); j++) {
+            if (tree_attributes.get(j).is_on_tree()) {
                 tmp_gain_values.add((double) 0);
                 continue;
             }
             HashMap temp = tree_attributes.get(j).get_transition_nodes();
-            tmp_gain_values.add(gain_value.gain(target_data_attributes,temp));
+            tmp_gain_values.add(gain_value.gain(target_data_attributes, temp));
         }
         int location = 0;
-        for(int j = 0;j < tmp_gain_values.size();j++) {
+        for (int j = 0; j < tmp_gain_values.size(); j++) {
             if (max_value < tmp_gain_values.get(j)) {
                 max_value = tmp_gain_values.get(j);
                 location = j;
             }
         }
-        if(decision_tree_root_node == null)
-        {
+        if (decision_tree_root_node == null) {
             decision_tree_root_node = tree_attributes.get(location);
             tree_attributes.get(location).used();
-            attributeNode_queue.add(decision_tree_root_node );
+            attributeNode_queue.add(decision_tree_root_node);
         }
-
-        for(int i = 0;i < 3;i++){
+    }
+    void build_decision_tree(){
+        while(!tree_finished()){
             tmp_gain_values = new Vector<>();
             int initial_queue_size = attributeNode_queue.size();
             for(int l = 0;l<initial_queue_size;l++)
@@ -154,7 +168,7 @@ public class DecisionTree {
                     String temp_key = temperary.getKey();
                     int [] temp_value = temperary.getValue();
                     double entrop_value = gain_value.Enthropy(temp_value);
-                    if(entrop_value == 1.0 || i == 2){
+                    if(entrop_value < 0.4 || i == 2){
                         if(temp_value[0] > temp_value[1])
                             temp_node_queue.update_all(target_attribute_value.get(0),null,temp_key);
                         else
@@ -195,7 +209,6 @@ public class DecisionTree {
 
                 }
             }
-
         }
     }
 }

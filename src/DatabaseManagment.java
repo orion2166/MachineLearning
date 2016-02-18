@@ -67,4 +67,16 @@ public class DatabaseManagment {
     int get_size(){ return dataset.size();}
     int get_attribute_size(){return attributes.size();}
     List<String> get_attribute_classifications(String key){return attributes.get(key);}
+    void randomize_data(){
+        Random rand = new Random();
+        int max = dataset.size();
+        for(int i = 0;i < dataset.size();i++)
+        {
+            int random_value1 = rand.nextInt(max);
+            int random_value2 = rand.nextInt(max);
+            String[] temp = dataset.get(random_value1);
+            dataset.insertElementAt(dataset.get(random_value2),random_value1);
+            dataset.insertElementAt(temp,random_value2);
+        }
+    }
 }
