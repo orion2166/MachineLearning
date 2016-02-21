@@ -9,7 +9,7 @@ public class print_decision_tree_main {
 
 
         DecisionTree Basic_decision_tree = new DecisionTree("C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Congressional_Voting_Records_Attributes","C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Congressional_Voting_Records_Data");
-        Basic_decision_tree.build_value_set(20);
+        Basic_decision_tree.build_value_set(10);
         Basic_decision_tree.build_first_node_decision_tree("republican","?");
         Basic_decision_tree.build_decision_tree();
         Basic_decision_tree.print_decision_tree(Basic_decision_tree.decision_tree_root_node);
