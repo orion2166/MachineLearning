@@ -4,7 +4,7 @@ import java.util.*;
  * Created by orion2166 on 2/14/2016.
  */
 public class DecisionTree {
-    private DatabaseManagment value_information;
+    public DatabaseManagment value_information;
     private Vector <AttributeNode> tree_attributes = new Vector<>();
     private Vector<String[]> used_data = new Vector<>();
     private int[] target_data_attributes = new int[]{0,0};

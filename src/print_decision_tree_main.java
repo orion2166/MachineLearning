@@ -9,6 +9,8 @@ public class print_decision_tree_main {
 
 
         DecisionTree Basic_decision_tree = new DecisionTree("C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Congressional_Voting_Records_Attributes","C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Congressional_Voting_Records_Data");
+        CrossValidation test_validation = new CrossValidation(Basic_decision_tree);
+        test_validation.set_cross_values();
         Basic_decision_tree.build_value_set(10);
         Basic_decision_tree.build_first_node_decision_tree("republican","?");
         Basic_decision_tree.build_decision_tree();
