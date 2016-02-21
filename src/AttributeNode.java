@@ -5,8 +5,8 @@ import java.util.Vector;
  * Created by orion2166 on 2/14/2016.
  */
 public class AttributeNode {
-    private String node_name;
-    private HashMap<String,int[]> attribute_transition_nodes = new HashMap<String,int[]>();
+    public String node_name;
+    public HashMap<String,int[]> attribute_transition_nodes = new HashMap<String,int[]>();
     private HashMap<String,AttributeNode> attribute_children = new HashMap<String,AttributeNode>();
     private HashMap<String,String> next_connection = new HashMap<>();
     private HashMap<String, Vector> sublists = new HashMap<>();
@@ -40,6 +40,7 @@ public class AttributeNode {
     }
     void reset_key(String key){
         attribute_transition_nodes.replace(key,new int[]{0,0});
+        sublists.replace(key,new Vector<String[]>());
     }
     void list_add(String[] list_value,String key){
         sublists.get(key).add(list_value);
@@ -48,6 +49,12 @@ public class AttributeNode {
         return sublists.get(key);
     }
     void completed(){node_completed = true;}
+    String key_connection(String key){
+        return next_connection.get(key);
+    }
+    AttributeNode get_node_connection(String key){
+        return attribute_children.get(key);
+    }
 
 
 }
