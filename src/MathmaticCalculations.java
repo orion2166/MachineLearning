@@ -41,4 +41,22 @@ public class MathmaticCalculations {
         return gain;
     }
 
+    Double normal_aproximation(int[] testdatas){
+        double z = 1.96;
+        double min = 1000000000;
+        double size = 0;
+        for(int i = 0;i<testdatas.length;i++)
+        {
+            if(testdatas[i] < min)
+            {
+                min = testdatas[i];
+            }
+            size += testdatas[i];
+        }
+        double p = (min+1)/(size+2);
+        double standard_mean = Math.sqrt((p*(1-p))/(size+2));
+        return size*(p + (z*standard_mean));
+
+    }
+
 }

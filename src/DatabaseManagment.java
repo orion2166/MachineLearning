@@ -10,8 +10,9 @@ public class DatabaseManagment {
 //    private String target_attribute;
     private HashMap<String,List<String>> attributes = new HashMap<String,List<String>>();
     private Vector<String> Attribute_name = new Vector<>();
-
-    public DatabaseManagment(String attributefile){
+    private int target_location = 0;
+    public DatabaseManagment(String attributefile,int target){
+        target_location = target;
         try{
 
             //Create object of FileReader
@@ -38,6 +39,9 @@ public class DatabaseManagment {
         }catch(Exception e){
             System.out.println("Error while reading file line by line:" + e.getMessage());
         }
+        String tmp = Attribute_name.firstElement();
+        Attribute_name.set(0,Attribute_name.get(target_location));
+        Attribute_name.set(target_location,tmp);
     }
     void setDataset (String file){
         try{
@@ -54,6 +58,9 @@ public class DatabaseManagment {
             // Read file line by line and print on the console
             while ((line = bufferReader.readLine()) != null)   {
                 String[] set_value = line.split(",");
+                String tmp = set_value[0];
+                set_value[0] = set_value[target_location];
+                set_value[target_location] = tmp;
                 dataset.add(set_value);
             }
             //Close the buffer reader
