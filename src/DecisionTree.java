@@ -58,11 +58,11 @@ public class DecisionTree {
                     set_target_values(classifiers.get(j));
                 }
             }
-
+            if(classifiers.get(0).equals("continuous"))
+                tree_attributes.lastElement().continuous = true;
             for (int j = 0; j < classifiers.size(); j++)
                 tree_attributes.lastElement().initialize_attribute_values(classifiers.get(j),num_targets);
         }
-
     }
 
 
@@ -88,14 +88,16 @@ public class DecisionTree {
             Iterator<HashMap.Entry<String, int[]>> iterator = transition_node_maps.entrySet().iterator();
             while (iterator.hasNext()) {
                 String temperary = iterator.next().getKey();
-                tree_attributes.get(i).reset_key(temperary);
+                tree_attributes.get(i).reset_key(temperary,target_attribute_value.size());
+                if(tree_attributes.get(i).continuous)
+                    break;
             }
         }
     }
 
     void build_attributes_sets(String target_positive_value, String missing_value, Vector<String[]> usable_data) {
         reset_attributes();
-
+        Vector<Integer> continuous_locations = new Vector<>();
         for (int i = 0; i < usable_data.size(); i++) {
 
             String[] change_value = usable_data.get(i);
@@ -108,6 +110,11 @@ public class DecisionTree {
             for (int l = 0; l < tree_attributes.size(); l++) {
                 if (tree_attributes.get(l).is_on_tree())
                     continue;
+                if (tree_attributes.get(l).continuous){
+                    if(!continuous_locations.contains(l))
+                        continuous_locations.add(l);
+                    continue;
+                }
                 HashMap transition_node_maps = tree_attributes.get(l).get_transition_nodes();
                 if (change_value[l].equals(missing_value)) {
                     Object[] key_values = transition_node_maps.keySet().toArray();
@@ -123,11 +130,17 @@ public class DecisionTree {
                         }
                     }
                     tree_attributes.get(l).list_add(change_value, (String) key_values[location_change]);
-                } else
+                }
+                else
+                {
                     tree_attributes.get(l).list_add(change_value, change_value[l]);
+                }
             }
 
             for (int j = 0; j < change_value.length; j++) {
+                if(tree_attributes.get(j).continuous) {
+                    continue;
+                }
                 HashMap transition_node_maps = tree_attributes.get(j).get_transition_nodes();
                 if (change_value[j].equals(missing_value)) {
                     Object[] key_values = transition_node_maps.keySet().toArray();
@@ -147,13 +160,18 @@ public class DecisionTree {
                     tree_attributes.get(j).update_attributes((String) key_values[location_change], update_value);
 
                 } else {
+
+                    if(transition_node_maps.get(change_value[j]) == null)
+                        continue;
                     int[] transition_node_value = (int[]) transition_node_maps.get(change_value[j]);
                     transition_node_value[target_location]++;
                     tree_attributes.get(j).update_attributes(change_value[j], transition_node_value);
                 }
             }
         }
-        set_target_values(target_positive_value);
+        for(int j = 0; j < continuous_locations.size();j++)
+            tree_attributes.get(continuous_locations.get(j)).set_continuous_attribute_values(usable_data, continuous_locations.get(j),target_attribute_value);
+//        set_target_values(target_positive_value);
         HashMap transition_node_maps = tree_attributes.get(0).get_transition_nodes();
         Iterator<HashMap.Entry<String, int[]>> iterator = transition_node_maps.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -296,14 +314,36 @@ public class DecisionTree {
     String test_tree(String[] test_value) {
         String[] seperated_values = test_value;
         AttributeNode temperary = decision_tree_root_node;
+        String continious_location = "";
         while (true) {
             String returned_value = "";
             if (seperated_values[test_tree_location.get(temperary.node_name)].equals(global_missing_value)) {
                 seperated_values = replace_missing_value(seperated_values, temperary);
+                returned_value = temperary.key_connection(seperated_values[test_tree_location.get(temperary.node_name)]);
             }
-            returned_value = temperary.key_connection(seperated_values[test_tree_location.get(temperary.node_name)]);
+            else if(temperary.continuous)
+            {
+                if(Double.parseDouble(seperated_values[test_tree_location.get(temperary.node_name)]) > temperary.global_middle){
+
+                    returned_value = temperary.key_connection("constant_upper");
+                    continious_location = "constant_upper";
+                }
+                else{
+                    returned_value = temperary.key_connection("constant_lower");
+                    continious_location = "constant_lower";
+                }
+            }
+            else
+                returned_value = temperary.key_connection(seperated_values[test_tree_location.get(temperary.node_name)]);
             if (test_tree_location.containsKey(returned_value))
+            {
+                if(temperary.continuous){
+
+                    temperary = temperary.get_node_connection(continious_location);
+                    continue;
+                }
                 temperary = temperary.get_node_connection(seperated_values[test_tree_location.get(temperary.node_name)]);
+            }
             else
                 return returned_value;
         }

@@ -10,9 +10,16 @@ public class MathmaticCalculations {
     public MathmaticCalculations(){}
     Double Enthropy(int [] plus_minus_nodes){
         double result = 0;
-        Double combination = Double.valueOf(plus_minus_nodes[0] + plus_minus_nodes[1]);
-        result -= (plus_minus_nodes[0]/combination) * (Math.log(plus_minus_nodes[0]/combination) / Math.log(2));
-        result -= (plus_minus_nodes[1]/combination) * (Math.log(plus_minus_nodes[1]/combination) / Math.log(2));
+        double combination = 0;
+        double[] value_set = new double[]{0.0,0.0};
+        for(int k = 0;k<plus_minus_nodes.length;k++){
+            if(k == 0)
+                value_set[0] += Double.valueOf(plus_minus_nodes[k]);
+            combination += Double.valueOf(plus_minus_nodes[k]);
+            value_set[1] += Double.valueOf(plus_minus_nodes[k]);
+        }
+        for(int k = 0;k<value_set.length;k++)
+            result -= (plus_minus_nodes[k]/combination) * (Math.log(plus_minus_nodes[k]/combination) / Math.log(2));
         return result;
     }
 
@@ -23,7 +30,9 @@ public class MathmaticCalculations {
         while(iterator.hasNext()){
             overallnodevalues.add(iterator.next().getValue());
         }
-        int maxtemp = S[0] + S[1];
+        int maxtemp = 0;
+        for(int k = 0;k<S.length;k++)
+            maxtemp += S[k];
         double max_enthropy_node = Enthropy(S);
         for(int i = 0;i<overallnodevalues.size();i++){
             Double combination = Double.valueOf((overallnodevalues.get(i)[1] + overallnodevalues.get(i)[0]));
@@ -59,4 +68,13 @@ public class MathmaticCalculations {
 
     }
 
+    Vector confidence_interval(double wrong,int size){
+        double z = 1.96;
+        Vector<Double> confidence = new Vector<>();
+        double p = wrong;
+        double standard_mean = Math.sqrt((p*(1-p))/(size+2));
+        confidence.add(p + (z*standard_mean));
+        confidence.add(p - (z*standard_mean));
+        return confidence;
+    }
 }

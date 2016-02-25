@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Created by orion2166 on 2/14/2016.
@@ -15,7 +12,8 @@ public class AttributeNode {
     private HashMap<String, Double> prune = new HashMap<>();
     private boolean node_completed;
     private boolean node_on_tree;
-    private boolean continuous = false;
+    public double global_middle = 0.0;
+    public boolean continuous = false;
     public AttributeNode(String name) {
         node_name = name;
         node_on_tree = false;
@@ -49,8 +47,17 @@ public class AttributeNode {
         attribute_children.put(key_value,connection);
         next_connection.put(key_value,end);
     }
-    void reset_key(String key){
-        attribute_transition_nodes.replace(key,new int[]{0,0});
+    void reset_key(String key,int size){
+        if(continuous) {
+            attribute_transition_nodes.clear();
+            sublists.clear();
+            key = "continuous";
+        }
+        int[] newsets = new int[size];
+        for(int k = 0; k < size; k++){
+            newsets[k] = 0;
+        }
+        attribute_transition_nodes.replace(key,newsets);
         sublists.replace(key,new Vector<String[]>());
     }
     void list_add(String[] list_value,String key){
@@ -86,6 +93,42 @@ public class AttributeNode {
             }
         }
         return true;
+    }
+    void set_continuous_attribute_values(Vector<String[]> usable_data,int location,Vector<String> build_attribute){
+        HashMap<String, Vector<Double>> bounds_determine = new HashMap<>();
+        Vector<Double> overall_sets = new Vector<>();
+        for(int i = 0;i<usable_data.size();i++){
+            if(!bounds_determine.containsKey(usable_data.get(i)[0])){
+                bounds_determine.put(usable_data.get(i)[0],new Vector<Double>());
+            }
+            overall_sets.add(Double.parseDouble(usable_data.get(i)[location]));
+        }
+        Collections.sort(overall_sets);
+        double middle = (overall_sets.lastElement() - overall_sets.firstElement())/2.0;
+        middle += overall_sets.firstElement();
+        global_middle = middle;
+        int[] enthropy_values = new int[build_attribute.size()];
+        for(int k = 0;k<enthropy_values.length;k++)
+            enthropy_values[k] = 0;
+        attribute_transition_nodes.put("constant_upper",enthropy_values);
+        attribute_transition_nodes.put("constant_lower",enthropy_values);
+        sublists.put("constant_upper",new Vector<String[]>());
+        sublists.put("constant_lower",new Vector<String[]>());
+
+        for(int i = 0;i<usable_data.size();i++){
+            if (Double.parseDouble(usable_data.get(i)[location]) > middle){
+                attribute_transition_nodes.get("constant_upper")[build_attribute.lastIndexOf(usable_data.get(i)[0])]++;
+                sublists.get("constant_upper").add(usable_data.get(i));
+
+            }
+            else
+            {
+                attribute_transition_nodes.get("constant_lower")[build_attribute.lastIndexOf(usable_data.get(i)[0])]++;
+                sublists.get("constant_lower").add(usable_data.get(i));
+            }
+
+        }
+
     }
 
 
