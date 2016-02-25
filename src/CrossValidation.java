@@ -14,11 +14,11 @@ public class CrossValidation {
             used_data.add(new Vector<String[]>());
         }
     }
-    Vector cross_validation(String targets,String missing,String prunning_method){
+    Vector cross_validation(String targets,String missing,String prunning_method,String attribute,String data,int location){
         set_cross_values();
         for(int i = 0;i<10;i++)
         {
-            test_node.decision_tree_root_node = null;
+            test_node = new DecisionTree(attribute,data,location);
             build_cross_validation(used_data.get(i),targets,missing,prunning_method);
             for(int j = 0;j<10;j++)
             {
@@ -39,6 +39,7 @@ public class CrossValidation {
                 result_sets.add(cross_results);
             }
         }
+//        test_node.print_decision_tree(test_node.decision_tree_root_node);
         return result_sets;
     }
     void set_cross_values(){

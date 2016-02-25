@@ -133,7 +133,8 @@ public class DecisionTree {
                 }
                 else
                 {
-                    tree_attributes.get(l).list_add(change_value, change_value[l]);
+                    if(!(tree_attributes.get(l) == null))
+                        tree_attributes.get(l).list_add(change_value, change_value[l]);
                 }
             }
 

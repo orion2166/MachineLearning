@@ -61,7 +61,8 @@ public class AttributeNode {
         sublists.replace(key,new Vector<String[]>());
     }
     void list_add(String[] list_value,String key){
-        sublists.get(key).add(list_value);
+        if(!(sublists.get(key) == null))
+            sublists.get(key).add(list_value);
     }
     Vector get_list(String key){
         return sublists.get(key);

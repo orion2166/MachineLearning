@@ -10,16 +10,14 @@ public class print_decision_tree_main {
         DecisionTree Basic_decision_tree = new DecisionTree(attributes,data,16);
         CrossValidation test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("DGN3", "?", "");
+        test_validation.cross_validation("DGN3", "?", "", attributes, data, 16);
         System.out.println(test_validation.percent_accuracy_cross_validation());
-        Basic_decision_tree.print_decision_tree(Basic_decision_tree.decision_tree_root_node);
-
         System.out.println("with pruning");
 
         Basic_decision_tree = new DecisionTree(attributes,data,16);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("DGN3", "?", "Pessimistic");
+        test_validation.cross_validation("DGN3", "?", "Pessimistic",attributes,data,16);
         System.out.println(test_validation.percent_accuracy_cross_validation());
 
         // CHESS_KING_PAWN-------------------------------------------------------------------------------------------
@@ -28,7 +26,7 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,36);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("won", "?", "");
+        test_validation.cross_validation("won", "?", "",attributes,data,36);
         System.out.println(test_validation.percent_accuracy_cross_validation());
 
         System.out.println("with pruning");
@@ -36,9 +34,8 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,36);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("won", "?", "Pessimistic");
+        test_validation.cross_validation("won", "?", "Pessimistic",attributes,data,36);
         System.out.println(test_validation.percent_accuracy_cross_validation());
-        Basic_decision_tree.print_decision_tree(Basic_decision_tree.decision_tree_root_node);
 
         // Tic_Tac_Toe -------------------------------------------------------------------------------------------
         attributes = "C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Tic_Tac_Toe_Attributes";
@@ -46,7 +43,7 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,9);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("positive", "?", "");
+        test_validation.cross_validation("positive", "?", "",attributes,data,9);
         System.out.println(test_validation.percent_accuracy_cross_validation());
 
         System.out.println("with pruning");
@@ -54,9 +51,8 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,9);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("positive", "?", "Pessimistic");
+        test_validation.cross_validation("positive", "?", "Pessimistic",attributes,data,9);
         System.out.println(test_validation.percent_accuracy_cross_validation());
-        Basic_decision_tree.print_decision_tree(Basic_decision_tree.decision_tree_root_node);
 
         // Congressional_Voting -------------------------------------------------------------------------------------------
         attributes = "C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Congressional_Voting_Records_Attributes";
@@ -64,7 +60,7 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,0);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("democrat", "?", "");
+        test_validation.cross_validation("democrat", "?", "",attributes,data,0);
         System.out.println(test_validation.percent_accuracy_cross_validation());
 
         System.out.println("with pruning");
@@ -72,9 +68,8 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,0);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("democrat", "?", "Pessimistic");
+        test_validation.cross_validation("democrat", "?", "Pessimistic",attributes,data,0);
         System.out.println(test_validation.percent_accuracy_cross_validation());
-        Basic_decision_tree.print_decision_tree(Basic_decision_tree.decision_tree_root_node);
 
         // Monks_Problems -------------------------------------------------------------------------------------------
         attributes = "C:\\Users\\orion_000\\Documents\\GitHub\\MachineLearning\\database_sets\\Monks_Problems_Attributes";
@@ -82,7 +77,7 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,0);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("1", "?", "");
+        test_validation.cross_validation("1", "?", "",attributes,data,0);
         System.out.println(test_validation.percent_accuracy_cross_validation());
 
         System.out.println("with pruning");
@@ -90,9 +85,8 @@ public class print_decision_tree_main {
         Basic_decision_tree = new DecisionTree(attributes,data,0);
         test_validation = new CrossValidation(Basic_decision_tree);
         test_validation.set_cross_values();
-        test_validation.cross_validation("1", "?", "Pessimistic");
+        test_validation.cross_validation("1", "?", "Pessimistic",attributes,data,0);
         System.out.println(test_validation.percent_accuracy_cross_validation());
-        Basic_decision_tree.print_decision_tree(Basic_decision_tree.decision_tree_root_node);
 
     }
 
