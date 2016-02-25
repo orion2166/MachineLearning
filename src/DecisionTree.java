@@ -279,17 +279,18 @@ public class DecisionTree {
         }
     }
 
-    public void print_decision_tree(AttributeNode leafnodes) {
-        String connections = leafnodes.node_name + " - ";
+    public void print_decision_tree(AttributeNode leafnodes,String space) {
+        String connections = space + leafnodes.node_name + " - ";
         HashMap transition_node_maps = leafnodes.get_transition_nodes();
         Iterator<HashMap.Entry<String, int[]>> iterator = transition_node_maps.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, int[]> temperary = iterator.next();
             String temp_key = temperary.getKey();
-            connections += "(" + temp_key + " -> " + leafnodes.key_connection(temp_key) + ")";
+            int[] plus_minus = leafnodes.attribute_transition_nodes.get(temp_key);
+            connections += "(" + temp_key + " -> " + leafnodes.key_connection(temp_key) + ")["+String.valueOf(plus_minus[0])+","+String.valueOf(plus_minus[0])+"]";
             AttributeNode temperary_attribute = leafnodes.get_node_connection(temp_key);
             if (temperary_attribute != null)
-                print_decision_tree(temperary_attribute);
+                print_decision_tree(temperary_attribute,space + "     ");
         }
         System.out.println(connections);
 
