@@ -15,8 +15,11 @@ public class DecisionTree {
     private HashMap<String, Integer> test_tree_location = new HashMap<>();
 
     public DecisionTree(String attribute_file_location, String database_datasets_filelocatio,int target) {
-        value_information = new DatabaseManagment(attribute_file_location,target);
-        value_information.setDataset(database_datasets_filelocatio);
+//        value_information = new DatabaseManagment(attribute_file_location,target);
+//        value_information.setDataset(database_datasets_filelocatio);
+//
+        value_information = null;
+//        value_information.setDataset(database_datasets_filelocatio);
         attributeNode_queue = new LinkedList();
         set_attributes();
     }
