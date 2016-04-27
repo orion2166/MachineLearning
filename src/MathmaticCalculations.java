@@ -23,6 +23,13 @@ public class MathmaticCalculations {
         return result;
     }
 
+    public double one_layer_information_gain(int[] parents,int[] child)
+    {
+        double parententropy = Enthropy(parents);
+        double childentropy = Enthropy(child);
+        return parententropy - childentropy;
+    }
+
     Double gain(int []S, HashMap map){
         Vector<int []> overallnodevalues = new Vector<>();
         Vector<Double> sum_of_enthropies = new Vector<>();

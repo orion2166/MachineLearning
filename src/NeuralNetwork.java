@@ -6,15 +6,15 @@ import java.util.Vector;
  * Created by orion_000 on 3/21/2016.
  */
 public class NeuralNetwork {
-    private Vector<NerualNetworkLayer> totalLayers = new Vector<>();
-    private NerualNetworkLayer inputlayer;
-    private Vector<String[]> used_data = new Vector<>();
+    protected Vector<NerualNetworkLayer> totalLayers = new Vector<>();
+    protected NerualNetworkLayer inputlayer;
+    public Vector<String[]> used_data = new Vector<>();
     public DatabaseManagment value_information;
-    private Vector<HashMap<String,Integer>> values = new Vector<>();
-    private NerualNetworkLayer outputlayer;
-    private Vector<Integer> attributes_sections = new Vector<>();
-    private boolean convert_binary_final = false;
-    private Vector<Double> threshold = new Vector<>();
+    protected Vector<HashMap<String,Integer>> values = new Vector<>();
+    protected NerualNetworkLayer outputlayer;
+    protected Vector<Integer> attributes_sections = new Vector<>();
+    protected boolean convert_binary_final = false;
+    protected Vector<Double> threshold = new Vector<>();
 
     public NeuralNetwork(int nodesNumber, int hiddenLayerNumbers,String attribute_file_location, String database_datasets_filelocatio,int target,boolean convert_binary){
         value_information = new DatabaseManagment(attribute_file_location,target,!convert_binary);
@@ -54,6 +54,9 @@ public class NeuralNetwork {
         for(int i = 0;i < value_information.get_attribute_classifications((String) keys.get(0)).size();i++)
             threshold.add(.5);
 //        build_value_set(10);
+    }
+
+    public NeuralNetwork() {
     }
 
 
