@@ -10,16 +10,18 @@ public class MathmaticCalculations {
     public MathmaticCalculations(){}
     Double Enthropy(int [] plus_minus_nodes){
         double result = 0;
-        double combination = 0;
-        double[] value_set = new double[]{0.0,0.0};
+        double combination = 2;
+        double[] value_set = new double[]{1.0,1.0};
         for(int k = 0;k<plus_minus_nodes.length;k++){
-            if(k == 0)
-                value_set[0] += Double.valueOf(plus_minus_nodes[k]);
             combination += Double.valueOf(plus_minus_nodes[k]);
+            if(k == 0){
+                value_set[0] += Double.valueOf(plus_minus_nodes[k]);
+                continue;
+            }
             value_set[1] += Double.valueOf(plus_minus_nodes[k]);
         }
         for(int k = 0;k<value_set.length;k++)
-            result -= (plus_minus_nodes[k]/combination) * (Math.log(plus_minus_nodes[k]/combination) / Math.log(2));
+            result -= (value_set[k]/combination) * (Math.log(value_set[k]/combination) / Math.log(2));
         return result;
     }
 

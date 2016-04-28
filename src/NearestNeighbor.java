@@ -18,7 +18,6 @@ public class NearestNeighbor extends NeuralNetwork{
 
     }
     public void setweight(int amountupdates,String targetkeyvalue){
-        setattributeweights();
         seperateinstances();
         Random ra = new Random();
         ra.ints(used_data.size());
@@ -149,20 +148,33 @@ public class NearestNeighbor extends NeuralNetwork{
                 incremnt.set(values.get(j).get(used_data.get(i)[j]),incrementvalue);
             }
         }
+
         MathmaticCalculations entropycalculator = new MathmaticCalculations();
-        for(int i = 1; i < value_information.get_attribute_size();i++){
+        for(int i = 0; i < value_information.get_attribute_keys().size()-1;i++){
+            attribute_scale.add(new Vector<Double>());
             Iterator entries = Scale.entrySet().iterator();
             Vector<Vector<Integer>> temp= new Vector<>();
             while(entries.hasNext()){
-                Vector temperary = (Vector) entries.next();
-                temp.add((Vector<Integer>) temperary.get(i));
+                Map.Entry pair = (Map.Entry) entries.next();
+                Vector<Vector<Integer>> temperary = (Vector<Vector<Integer>>) pair.getValue();
+                temp.add(temperary.get(i));
             }
-            for(int j = 0;j < temp.size();j++){
-                
+
+            for(int l = 0; l < temp.get(0).size();l++){
+                int[] positive_negative = new int[]{0,0};
+                positive_negative[0] = temp.get(0).get(l);
+                for(int j = 1;j < temp.size();j++){
+                    positive_negative[1] += temp.get(j).get(l);
+                }
+                if(positive_negative[0] == 0 && positive_negative[1] == 0)
+                {
+                    attribute_scale.get(i).add(0.0);
+                    continue;
+                }
+                attribute_scale.get(i).add(entropycalculator.Enthropy(positive_negative));
+
             }
         }
-//        entropycalculator.Enthropy();
-
     }
 
     public String nearest_neighbor_selection(String[] inputvalue){
