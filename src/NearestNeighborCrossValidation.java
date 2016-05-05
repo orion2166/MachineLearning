@@ -23,6 +23,7 @@ public class NearestNeighborCrossValidation {
             networktest.used_data = new Vector<>(used_data.get(i));
             networktest.perform_instance_filter();
             networktest.setweight(numweightchange,target);
+//            networktest.setattributeweights();
             for(int j = 0;j<10;j++)
             {
                 double[] cross_results = new double[]{0.0,0.0};

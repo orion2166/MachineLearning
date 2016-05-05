@@ -183,6 +183,8 @@ public class NearestNeighbor extends NeuralNetwork{
         for(int i = 0;i < used_data.size();i++)
         {
             double[] compare = nearest_neighbor_calculation(inputvalue,attribute_weights,used_data.get(i));
+//            double[] compare = nearest_neighbor_calculation_informationgain(used_data.get(i), attribute_scale, used_data.get(i));
+//            double[] compare = nearest_neighbor_calculation_informationgain_relief(used_data.get(i), attribute_weights,attribute_scale, used_data.get(i));
             if(difference > (compare[0] + compare[1])) {
                 difference = (compare[0] + compare[1]);
                 select_neighbor = i;
@@ -200,6 +202,8 @@ public class NearestNeighbor extends NeuralNetwork{
                 if(j == i)
                     continue;
                 double[] diff = nearest_neighbor_calculation(used_data.get(i),attribute_weights,used_data.get(j));
+//                double[] diff = nearest_neighbor_calculation_informationgain(used_data.get(i), attribute_scale, used_data.get(j));
+//                double[] diff = nearest_neighbor_calculation_informationgain_relief(used_data.get(i), attribute_weights,attribute_scale, used_data.get(j));
                 if(largest > (diff[0]+diff[1])) {
                     largest = (diff[0] + diff[1]);
                     remove_section = j;
@@ -226,6 +230,58 @@ public class NearestNeighbor extends NeuralNetwork{
                 temp_input_value = weightvalue.get(i)*((temp_input_value - value_information.continuous_mean.get(i))/ value_information.continuous_standard_dev.get(i));
                 temp_compare_value = Double.parseDouble(comparevalue[i]);
                 temp_compare_value = weightvalue.get(i)*((temp_compare_value - value_information.continuous_mean.get(i))/ value_information.continuous_standard_dev.get(i));
+                continuous += Math.pow(temp_input_value - temp_compare_value, 2);
+                continue;
+            }
+            temp_input_value = new Double(values.get(i).get(inputvalue[i]));
+            temp_compare_value = new Double(values.get(i).get(comparevalue[i]));
+            discrete += Math.pow(temp_input_value - temp_compare_value,2);
+
+        }
+        comparedfinal[0] = Math.sqrt(discrete);
+        comparedfinal[1] = Math.sqrt(continuous);
+        return comparedfinal;
+    }
+    public double[] nearest_neighbor_calculation_informationgain(String[] inputvalue,Vector<Vector<Double>> weightvalue, String[] comparevalue){
+        double continuous = 0;
+        double discrete = 0;
+        double temp_input_value = 0.0;
+        double temp_compare_value = 0.0;
+        double[] comparedfinal = new double[2];
+        for(int i = 1;i<inputvalue.length;i++)
+        {
+            if(value_information.continuous_marker.get(i)){
+
+                temp_input_value = Double.parseDouble(inputvalue[i]);
+                temp_input_value = weightvalue.get(i).get(values.get(i).get(inputvalue[i]))*((temp_input_value - value_information.continuous_mean.get(i))/ value_information.continuous_standard_dev.get(i));
+                temp_compare_value = Double.parseDouble(comparevalue[i]);
+                temp_compare_value = weightvalue.get(i).get(values.get(i).get(inputvalue[i]))*((temp_compare_value - value_information.continuous_mean.get(i))/ value_information.continuous_standard_dev.get(i));
+                continuous += Math.pow(temp_input_value - temp_compare_value, 2);
+                continue;
+            }
+            temp_input_value = new Double(values.get(i).get(inputvalue[i]));
+            temp_compare_value = new Double(values.get(i).get(comparevalue[i]));
+            discrete += Math.pow(temp_input_value - temp_compare_value,2);
+
+        }
+        comparedfinal[0] = Math.sqrt(discrete);
+        comparedfinal[1] = Math.sqrt(continuous);
+        return comparedfinal;
+    }
+    public double[] nearest_neighbor_calculation_informationgain_relief(String[] inputvalue, Vector<Double> weightvalue, Vector<Vector<Double>> weightvaluegain  ,String[] comparevalue){
+        double continuous = 0;
+        double discrete = 0;
+        double temp_input_value = 0.0;
+        double temp_compare_value = 0.0;
+        double[] comparedfinal = new double[2];
+        for(int i = 1;i<inputvalue.length;i++)
+        {
+            if(value_information.continuous_marker.get(i)){
+
+                temp_input_value = Double.parseDouble(inputvalue[i]);
+                temp_input_value = weightvaluegain.get(i).get(values.get(i).get(inputvalue[i])) * weightvalue.get(i)*((temp_input_value - value_information.continuous_mean.get(i))/ value_information.continuous_standard_dev.get(i));
+                temp_compare_value = Double.parseDouble(comparevalue[i]);
+                temp_compare_value = weightvaluegain.get(i).get(values.get(i).get(inputvalue[i])) * weightvalue.get(i)*((temp_compare_value - value_information.continuous_mean.get(i))/ value_information.continuous_standard_dev.get(i));
                 continuous += Math.pow(temp_input_value - temp_compare_value, 2);
                 continue;
             }

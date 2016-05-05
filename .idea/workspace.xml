@@ -36,16 +36,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NearestNeighbor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NearestNeighbor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/NearestNeighbor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1023891" vertical-offset="0" max-vertical-offset="2839">
-              <caret line="19" column="67" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2295" max-vertical-offset="3264">
+              <caret line="185" column="45" selection-start-line="185" selection-start-column="45" selection-end-line="185" selection-end-column="45" />
               <folding>
                 <element signature="method#updateweights#0;class#NearestNeighbor#0" expanded="false" />
                 <element signature="method#seperateinstances#0;class#NearestNeighbor#0" expanded="false" />
-                <element signature="method#perform_instance_filter#0;class#NearestNeighbor#0" expanded="false" />
                 <element signature="method#nearest_neighbor_calculation#0;class#NearestNeighbor#0" expanded="false" />
+                <element signature="method#nearest_neighbor_calculation_informationgain#0;class#NearestNeighbor#0" expanded="false" />
+                <element signature="method#nearest_neighbor_calculation_informationgain_relief#0;class#NearestNeighbor#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -64,21 +65,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="print_nearest_neighbor_main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/print_nearest_neighbor_main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1751">
+              <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MathmaticCalculations.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MathmaticCalculations.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1564">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1564">
               <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="print_nearest_neighbor_main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/print_nearest_neighbor_main.java">
+      <file leaf-file-name="NearestNeighborCrossValidation.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/NearestNeighborCrossValidation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="328" max-vertical-offset="1666">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5270655" vertical-offset="257" max-vertical-offset="1921">
+              <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -128,10 +139,10 @@
         <option value="$PROJECT_DIR$/src/NearestNeighborMathmatics.java" />
         <option value="$PROJECT_DIR$/src/print_neura_network_main.java" />
         <option value="$PROJECT_DIR$/src/NeuralNetwork.java" />
-        <option value="$PROJECT_DIR$/src/NearestNeighborCrossValidation.java" />
-        <option value="$PROJECT_DIR$/src/print_nearest_neighbor_main.java" />
         <option value="$PROJECT_DIR$/src/MathmaticCalculations.java" />
+        <option value="$PROJECT_DIR$/src/print_nearest_neighbor_main.java" />
         <option value="$PROJECT_DIR$/src/NearestNeighbor.java" />
+        <option value="$PROJECT_DIR$/src/NearestNeighborCrossValidation.java" />
       </list>
     </option>
   </component>
@@ -509,7 +520,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="2" width="1378" height="733" extended-state="1" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -524,12 +535,12 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34775373" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2276176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30500758" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962063" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44425955" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44425955" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -604,13 +615,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/NearestNeighborCrossValidation.java</url>
-          <line>61</line>
+          <line>62</line>
           <properties />
           <option name="timeStamp" value="613" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/NearestNeighbor.java</url>
-          <line>186</line>
+          <line>188</line>
           <properties />
           <option name="timeStamp" value="627" />
         </line-breakpoint>
@@ -620,8 +631,14 @@
           <properties />
           <option name="timeStamp" value="633" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/NearestNeighbor.java</url>
+          <line>146</line>
+          <properties />
+          <option name="timeStamp" value="680" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="680" />
+      <option name="time" value="681" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -929,33 +946,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/print_neura_network_main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.787062" vertical-offset="1836" max-vertical-offset="3264">
-          <caret line="69" column="87" selection-start-line="69" selection-start-column="87" selection-end-line="69" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database_sets/Monks_Problems_Data">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7845659" vertical-offset="6845" max-vertical-offset="7429">
           <caret line="417" column="0" selection-start-line="417" selection-start-column="0" selection-end-line="417" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NeuralNetworkMathmatics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NearestNeighborCrossValidation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1904">
-          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -967,10 +961,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/NeuralNetworkMathmatics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="129" max-vertical-offset="527">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+          <folding>
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#494#495#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/print_neura_network_main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43589744" vertical-offset="1887" max-vertical-offset="3264">
+          <caret line="120" column="120" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="120" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MathmaticCalculations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1564">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NearestNeighbor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2295" max-vertical-offset="3264">
+          <caret line="185" column="45" selection-start-line="185" selection-start-column="45" selection-end-line="185" selection-end-column="45" />
+          <folding>
+            <element signature="method#updateweights#0;class#NearestNeighbor#0" expanded="false" />
+            <element signature="method#seperateinstances#0;class#NearestNeighbor#0" expanded="false" />
+            <element signature="method#nearest_neighbor_calculation#0;class#NearestNeighbor#0" expanded="false" />
+            <element signature="method#nearest_neighbor_calculation_informationgain#0;class#NearestNeighbor#0" expanded="false" />
+            <element signature="method#nearest_neighbor_calculation_informationgain_relief#0;class#NearestNeighbor#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/print_nearest_neighbor_main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="328" max-vertical-offset="1666">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1751">
+          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -986,24 +1021,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MathmaticCalculations.java">
+    <entry file="file://$PROJECT_DIR$/src/NearestNeighborCrossValidation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1564">
-          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.5270655" vertical-offset="257" max-vertical-offset="1921">
+          <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NearestNeighbor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1023891" vertical-offset="0" max-vertical-offset="2839">
-          <caret line="19" column="67" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
-          <folding>
-            <element signature="method#updateweights#0;class#NearestNeighbor#0" expanded="false" />
-            <element signature="method#seperateinstances#0;class#NearestNeighbor#0" expanded="false" />
-            <element signature="method#perform_instance_filter#0;class#NearestNeighbor#0" expanded="false" />
-            <element signature="method#nearest_neighbor_calculation#0;class#NearestNeighbor#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
